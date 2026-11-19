@@ -1,4 +1,4 @@
-<p align="center"><img src="src/axiom/frontend/src/assets/hero.png" alt="Axiom" width="128"></p>
+<p align="center"><img src="frontend/src/assets/hero.png" alt="Axiom" width="128"></p>
 
 # 公理 Axiom
 
@@ -15,25 +15,24 @@
 
 - 桌面：Electron + React + TypeScript + Vite + shadcn
 - 后端：Python 3.11+、FastAPI、SQLAlchemy
-- 求解：HiGHS / PuLP / OR-Tools / CVXPY 等（见 `src/axiom/backend/pyproject.toml`）
+- 求解：HiGHS / PuLP / OR-Tools / CVXPY 等（见 `backend/pyproject.toml`）
 
 ## 从源码运行
 
-源码在 `src/axiom/`。本仓库不包含安装包。前端与后端需一并启动，具体步骤见 `src/axiom/README.md`。典型开发方式：
+源码在仓库根目录。本仓库不包含安装包。前端与后端需一并启动，具体步骤见 `README.original.md`。典型开发方式：
 
 ```bash
-cd src/axiom/backend
+cd backend
 # 按 pyproject.toml 创建虚拟环境并安装依赖后启动 FastAPI 侧车
 
-cd src/axiom/frontend
+cd frontend
 npm install
 npm run dev          # Vite
 # 桌面壳：按该目录 package.json 的 electron / dist 脚本
 ```
-
 ## 文档
 
-- [产品说明](src/axiom/README.md)
+- [产品说明](README.original.md)
 
 ---
 
@@ -54,23 +53,22 @@ npm run dev          # Vite
 
 - 桌面：Electron + React + TypeScript + Vite + shadcn
 - 后端：Python 3.11+、FastAPI、SQLAlchemy
-- 求解：HiGHS / PuLP / OR-Tools / CVXPY 等（见 `src/axiom/backend/pyproject.toml`）
+- 求解：HiGHS / PuLP / OR-Tools / CVXPY 等（见 `backend/pyproject.toml`）
 
 ## Getting started
 
-Source is under `src/axiom/`. This repository does not include installers. Start the frontend and backend together; see `src/axiom/README.md` for the full flow. Typical development:
+Source is at the repository root. This repository does not include installers. Start the frontend and backend together; see `README.original.md` for the full flow. Typical development:
 
 ```bash
-cd src/axiom/backend
+cd backend
 # Create a venv from pyproject.toml and start the FastAPI sidecar
 
-cd src/axiom/frontend
+cd frontend
 npm install
 npm run dev          # Vite
 # Desktop shell: use the electron / dist scripts in that package.json
 ```
-
 ## Documentation
 
-- [产品说明](src/axiom/README.md)
+- [产品说明](README.original.md)
 
