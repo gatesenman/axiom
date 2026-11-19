@@ -1,0 +1,42 @@
+公理 Axiom for Windows x64
+==========================
+
+Nothing else has to be installed. The app carries its own Python 3.12 runtime,
+solver libraries, and the desktop shell.
+
+Installer
+---------
+Run Axiom-Setup-1.0.0-x64.exe. On the directory page, choose:
+
+    E:\mydevieAPP
+
+The installer does not pick that disk for you. After it finishes, start 公理 Axiom
+from the Start menu or from E:\mydevieAPP\Axiom.exe.
+
+Portable zip
+------------
+Extract Axiom-1.0.0-win-x64.zip so that Axiom.exe lands in:
+
+    E:\mydevieAPP\Axiom.exe
+
+Double-click Axiom.exe. The first launch starts the bundled Python sidecar on
+127.0.0.1:43124. Sign in with demo / demo1234.
+
+The app never calls a Python installed elsewhere on the machine. If the bundled
+runtime is missing, a dialog says so and the sidecar is not started.
+
+Solvers included
+----------------
+HiGHS, CBC (PuLP and python-mip), CLP, GLPK (solvers\glpsol.exe), OR-Tools
+(SCIP, GLOP, PDLP, CP-SAT), PySCIPOpt, Clarabel, ECOS, SCS, OSQP, CVXOPT,
+SciPy (SLSQP, trust-constr, HiGHS), and IPOPT as solvers\ipopt.exe.
+
+Not included, and shown as 未安装 in 设置 until you install them:
+- cyipopt: there is no Windows wheel. The IPOPT executable above is bundled instead.
+- Bonmin and Couenne: no current Windows executable is published.
+- Gurobi, CPLEX, FICO Xpress, MOSEK, COPT, Knitro, BARON, and Hexaly.
+  These are detected when the official library and a license are already on the machine.
+
+Offline rebuild
+---------------
+See docs/windows-offline.md in the source archive.

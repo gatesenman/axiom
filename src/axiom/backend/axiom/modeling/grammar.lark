@@ -1,0 +1,89 @@
+// Axiom Modeling Language (AML)
+// Reserved words are string literals and outrank the NAME regexp.
+
+start: statement*
+
+?statement: set_stmt
+          | param_stmt
+          | var_stmt
+          | obj_stmt
+          | con_stmt
+          | weight_stmt
+          | sos_stmt
+          | piece_stmt
+          | model_stmt
+
+model_stmt: "model" NAME ";"
+weight_stmt: "weight" NAME signed ";"
+sos_stmt: "sos1" NAME ":" NAME ("," NAME)* ";"
+piece_stmt: "piecewise" NAME "on" NAME ":" pair ("," pair)* ";"
+pair: "(" signed "," signed ")"
+
+set_stmt: "set" NAME ":=" set_expr ";"
+set_expr: "{" [element ("," element)*] ","? "}" -> set_list
+        | signed ".." signed -> set_range
+
+element: NAME | signed | STRING
+
+param_stmt: "param" NAME indexdecl? default_clause? ":=" param_value ";"
+indexdecl: "[" NAME ("," NAME)* "]"
+default_clause: "default" signed
+param_value: signed -> scalar
+           | "{" [entry ("," entry)*] ","? "}" -> table
+entry: key ":" signed
+key: element -> singlekey
+   | "(" element ("," element)+ ")" -> tuplekey
+
+var_stmt: "var" NAME indexdecl? varmod* ";"
+varmod: "continuous" -> continuous
+      | "integer" -> integer
+      | "binary" -> binary
+      | ">=" signed -> lower
+      | "<=" signed -> upper
+
+obj_stmt: SENSE NAME? ":" expr ";"
+con_stmt: ("s.t." | "subject" "to") NAME? quantifier? ":" con_body ";"
+quantifier: "[" qitem ("," qitem)* "]"
+qitem: NAME "in" NAME
+con_body: expr REL expr -> comparison
+        | "alldiff" "{" qitem ("," qitem)* "}" ref -> alldiff
+
+?expr: sum
+?sum: product
+    | sum "+" product -> add
+    | sum "-" product -> sub
+?product: power
+    | product "*" power -> mul
+    | product "/" power -> div
+?power: unary
+      | unary "^" power -> pow
+?unary: atom
+      | "-" unary -> neg
+?atom: NUMBER -> const
+     | "sum" "{" qitem ("," qitem)* "}" product -> sumexpr
+     | ref
+     | "(" expr ")"
+
+ref: NAME indexspec?
+indexspec: "[" index ("," index)* "]"
+index: NAME "-" NUMBER -> ix_sub
+     | NAME "+" NUMBER -> ix_add
+     | "prev" "(" NAME ")" -> ix_prev
+     | NUMBER -> ix_num
+     | STRING -> ix_str
+     | NAME -> ix_name
+
+signed: NUMBER -> pos
+      | "-" NUMBER -> neg
+
+SENSE.5: "minimize" | "maximize" | "min" | "max"
+REL.5: "<=" | ">=" | "==" | "="
+
+NAME: /[A-Za-z_][A-Za-z0-9_]*/
+NUMBER: /\d+(\.\d+)?([eE][+-]?\d+)?/
+STRING: /"(?:[^"\\]|\\.)*"/
+
+COMMENT: /#[^\n]*/
+%ignore COMMENT
+%import common.WS
+%ignore WS

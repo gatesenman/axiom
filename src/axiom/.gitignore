@@ -1,0 +1,35 @@
+.venv/
+*.egg-info/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+node_modules/
+dist/
+dist-electron/
+release/
+frontend/test-results/
+frontend/playwright-report/
+frontend/blob-report/
+frontend/.e2e-data/
+backend/.e2e-data/
+*.db
+*.db-journal
+backend/data/
+backend/*_out/
+.wine-axiom/
+.wine11/
+.wine-nsis/
+# Reassembled by scripts/restore-electron-cache.sh. The committed copies are the parts.
+vendor/electron-cache/*/*.zip
+.deliver-staging/
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
+src-tauri/target/
+
+# distlib launcher stubs; not part of the runtime
+vendor/windows/python/Lib/site-packages/pip/_vendor/distlib/*.exe

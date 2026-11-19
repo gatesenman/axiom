@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <title>Axiom</title>
+  <desc>Rounded indigo mark: a geometric A over a feasible polytope, with the optimal vertex in amber.</desc>
+  <rect width="1024" height="1024" rx="224" fill="#172454"/>
+  <g fill="none" stroke="#1E305F" stroke-width="34" stroke-linecap="round">
+    <path d="M156 648C352 408 672 408 868 648"/>
+    <path d="M206 548C378 348 646 348 818 548"/>
+    <path d="M268 460C400 320 624 320 756 460"/>
+  </g>
+  <polygon points="512,248 792,524 696,828 328,828 232,524" fill="#2A448C"/>
+  <g fill="none" stroke="#F4F6FC" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M324 808 L512 268 L700 808" stroke-width="124"/>
+    <path d="M378 508 H646" stroke-width="108"/>
+  </g>
+  <circle cx="512" cy="268" r="104" fill="#172454"/>
+  <circle cx="512" cy="268" r="80" fill="#F5B431"/>
+</svg>

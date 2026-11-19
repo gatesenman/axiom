@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://axiom.local/schema/model.json",
+  "title": "Axiom model",
+  "type": "object",
+  "required": ["name", "sets", "parameters", "variables", "objectives", "constraints"],
+  "properties": {
+    "name": {"type": "string"},
+    "meta": {"type": "object", "additionalProperties": {"type": "string"}},
+    "sets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "elements"],
+        "properties": {
+          "name": {"type": "string"},
+          "elements": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "parameters": {"type": "array"},
+    "variables": {"type": "array"},
+    "objectives": {"type": "array"},
+    "constraints": {"type": "array"}
+  },
+  "additionalProperties": false
+}

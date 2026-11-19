@@ -1,0 +1,24 @@
+﻿Axiom 1.0.0 构建说明（build f77adfe5）
+
+本构建更新：
+- sidecar 自动重启（最多 3 次）
+- 重连横幅（reconnect banner）
+- 登录错误区分：服务不可用 vs 密码错误
+
+文件清单（请核对 SHA256）：
+
+1) Axiom-Setup-1.0.0-x64.exe
+   大小: 541809937 字节
+   SHA256: 8e0d38085f56c2d48dfa6925a738747093ec3d5345264f452fe03c0d4fa3f599
+
+2) Axiom-1.0.0-win-x64.zip
+   大小: 678079807 字节
+   SHA256: 23fc53153ad125fff455f26c643dd8d78d9f3cec9ff602d5813a83b5f53b2db5
+
+3) Axiom-source-1.0.0.zip
+   大小: 1177253355 字节
+   SHA256: 75ad8d9a7d5bfa0ad1d5981dd1e16822c0900085e16387e22e508459fb0d1531
+
+演示账号：demo / demo1234
+
+安装注意：覆盖安装前请先完全退出旧版 Axiom（含托盘/sidecar），再运行安装包或解压覆盖。

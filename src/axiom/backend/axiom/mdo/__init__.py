@@ -1,0 +1,1 @@
+"""Multidisciplinary design optimization."""

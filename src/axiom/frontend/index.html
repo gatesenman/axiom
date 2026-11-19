@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/icon-512.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>公理 Axiom</title>
+    <style>
+      html, body { margin: 0; background: #1e1e1e; color: #f4f6fc; }
+    </style>
+    <script>
+      try {
+        var theme = localStorage.getItem("theme")
+        document.documentElement.classList.add(theme === "light" ? "light" : "dark")
+        var motion = localStorage.getItem("axiom_motion")
+        var reduce = motion ? motion === "reduce" : window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        if (reduce) document.documentElement.classList.add("reduce-motion")
+      } catch (e) {}
+      try {
+        var drop = []
+        for (var i = 0; i < localStorage.length; i++) {
+          var key = localStorage.key(i)
+          var value = localStorage.getItem(key) || ""
+          if (/api[-_]?base|base[-_]?url|sidecar|^axiom[._]port$|^port$/i.test(key) || /^https?:\/\/(127\.0\.0\.1|localhost)(:\d+)?\/?$/i.test(value.trim())) drop.push(key)
+          else if (/127\.0\.0\.1:\d+|localhost:\d+/.test(value) && /apiBase|"port"/.test(value)) drop.push(key)
+        }
+        drop.forEach(function (key) { localStorage.removeItem(key) })
+        var locale = localStorage.getItem("axiom_locale")
+        if (locale && locale !== "zh-CN" && locale !== "en") localStorage.removeItem("axiom_locale")
+        var token = localStorage.getItem("axiom_token")
+        if (token && !/^[A-Za-z0-9._~+/-]{16,512}$/.test(token)) localStorage.removeItem("axiom_token")
+        ;["axiom.layout", "axiom.recovery"].forEach(function (key) {
+          var raw = localStorage.getItem(key)
+          if (!raw) return
+          try { JSON.parse(raw) } catch (err) { localStorage.removeItem(key) }
+        })
+        var nativeSet = localStorage.setItem.bind(localStorage)
+        localStorage.setItem = function (key, value) {
+          var text = String(value)
+          if (/api[-_]?base|base[-_]?url|sidecar|^axiom[._]port$|^port$/i.test(key)) return
+          if (/^https?:\/\/(127\.0\.0\.1|localhost):\d+/i.test(text.trim())) return
+          if (/127\.0\.0\.1:\d+|localhost:\d+/.test(text) && /apiBase|"port"/.test(text)) return
+          nativeSet(key, text)
+        }
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      window.__axiomBootError = ""
+      window.addEventListener("error", function (event) {
+        window.__axiomBootError = (event && (event.message || (event.error && event.error.message))) || "script error"
+      })
+      window.addEventListener("unhandledrejection", function (event) {
+        var reason = event && event.reason
+        window.__axiomBootError = (reason && (reason.stack || reason.message)) || String(reason)
+      })
+      window.setTimeout(function () {
+        var root = document.getElementById("root")
+        if (root && root.childElementCount > 0) return
+        var scripts = Array.prototype.map.call(document.scripts, function (node) { return node.src || "inline" }).join("\n")
+        var detail = window.__axiomBootError || "The interface script did not start."
+        var screen = document.createElement("main")
+        screen.id = "boot-error"
+        screen.setAttribute("data-startup-error", "")
+        screen.dataset.detail = detail
+        screen.style.cssText = "box-sizing:border-box;min-height:100vh;display:flex;flex-direction:column;justify-content:center;gap:16px;max-width:720px;margin:0 auto;padding:32px;font:14px/1.5 Segoe UI,sans-serif;"
+        screen.innerHTML = "<h1 style=\"margin:0;font-size:20px\">界面没有启动</h1><p style=\"margin:0;color:#c5c8d4\">The studio interface did not start. Retry loads the page again.</p><pre style=\"margin:0;white-space:pre-wrap;overflow:auto;max-height:240px;padding:12px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.28);border-radius:8px\"></pre><div style=\"display:flex;gap:8px\"><button id=\"boot-retry\" type=\"button\" style=\"font:inherit;padding:8px 14px;border:0;border-radius:6px;background:#f5b431;color:#172454;cursor:pointer\">重试 Retry</button><button id=\"boot-logs\" type=\"button\" style=\"font:inherit;padding:8px 14px;border-radius:6px;border:1px solid rgba(255,255,255,.24);background:transparent;color:#f4f6fc;cursor:pointer\">打开日志文件夹</button></div>"
+        screen.querySelector("pre").textContent = detail + "\n\n" + scripts
+        document.body.appendChild(screen)
+        document.getElementById("boot-retry").addEventListener("click", function () { location.reload() })
+        document.getElementById("boot-logs").addEventListener("click", function () {
+          if (window.axiom && window.axiom.openLogs) window.axiom.openLogs()
+        })
+      }, 8000)
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
