@@ -33,3 +33,10 @@ src-tauri/target/
 
 # distlib launcher stubs; not part of the runtime
 vendor/windows/python/Lib/site-packages/pip/_vendor/distlib/*.exe
+
+# Additional hygiene
+Thumbs.db
+.env.local
+.env.*.local
+logs/
+coverage/

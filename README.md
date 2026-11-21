@@ -19,20 +19,70 @@
 
 ## 从源码运行
 
-源码在仓库根目录。本仓库不包含安装包。前端与后端需一并启动，具体步骤见 `README.original.md`。典型开发方式：
+源码在仓库根目录。本仓库不包含安装包。前端（Vite `:43123`）与后端（FastAPI `:43124`）需要一并启动。
+
+环境：Python 3.11+（开发建议 3.12）、Node.js 22+。可选系统求解器见 `backend/pyproject.toml` 与 [docs/solvers.md](docs/solvers.md)。
 
 ```bash
 cd backend
-# 按 pyproject.toml 创建虚拟环境并安装依赖后启动 FastAPI 侧车
+python3 -m venv .venv
+.venv/bin/pip install -e ".[dev]"
 
-cd frontend
+cd ../frontend
 npm install
-npm run dev          # Vite
-# 桌面壳：按该目录 package.json 的 electron / dist 脚本
 ```
-## 文档
 
-- [产品说明](README.original.md)
+两个进程都要开着：
+
+```bash
+# 终端 1
+cd backend
+PYTHONPATH=. .venv/bin/python -m uvicorn axiom.main:app --host 127.0.0.1 --port 43124
+
+# 终端 2
+cd frontend
+npm run dev
+```
+
+浏览器打开 http://127.0.0.1:43123 。第一次启动会写入演示账号 `demo` / `demo1234`。数据位于 `backend/data/`。不配置外部模型时，离线规则仍可建模。
+
+桌面开发壳：
+
+```bash
+cd frontend
+npm run desktop
+```
+
+测试：
+
+```bash
+cd backend
+PYTHONPATH=. AXIOM_SKIP_EXAMPLE=1 .venv/bin/python -m pytest
+cd ../frontend
+npm test
+```
+
+## 文档
+- [docs/architecture.md](docs/architecture.md)
+- [docs/aml-spec.md](docs/aml-spec.md)
+- [docs/solvers.md](docs/solvers.md)
+- [docs/analysis.md](docs/analysis.md)
+- [docs/agents.md](docs/agents.md)
+- [docs/lifecycle.md](docs/lifecycle.md)
+- [ROADMAP.md](ROADMAP.md)
+- [docs/providers.md](docs/providers.md)
+- [docs/studio-ux.md](docs/studio-ux.md)
+- [docs/figures.md](docs/figures.md)
+- [docs/algorithms.md](docs/algorithms.md)
+- [docs/windows-offline.md](docs/windows-offline.md)
+
+## 贡献
+
+欢迎通过 Issue 和 Pull Request 参与，详见 [CONTRIBUTING.md](CONTRIBUTING.md)。安全问题请按 [SECURITY.md](SECURITY.md) 私下报告。参与时请遵守 [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)。
+
+## 许可证
+
+本仓库尚未附带 LICENSE 文件，许可证未指定。
 
 ---
 
@@ -57,18 +107,68 @@ npm run dev          # Vite
 
 ## Getting started
 
-Source is at the repository root. This repository does not include installers. Start the frontend and backend together; see `README.original.md` for the full flow. Typical development:
+Source is at the repository root. This repository does not include installers. The frontend (Vite `:43123`) and backend (FastAPI `:43124`) must run together.
+
+Requires Python 3.11+ (3.12 recommended) and Node.js 22+. See `backend/pyproject.toml` and [docs/solvers.md](docs/solvers.md) for optional system solvers.
 
 ```bash
 cd backend
-# Create a venv from pyproject.toml and start the FastAPI sidecar
+python3 -m venv .venv
+.venv/bin/pip install -e ".[dev]"
 
-cd frontend
+cd ../frontend
 npm install
-npm run dev          # Vite
-# Desktop shell: use the electron / dist scripts in that package.json
 ```
+
+Keep both processes running:
+
+```bash
+# terminal 1
+cd backend
+PYTHONPATH=. .venv/bin/python -m uvicorn axiom.main:app --host 127.0.0.1 --port 43124
+
+# terminal 2
+cd frontend
+npm run dev
+```
+
+Open http://127.0.0.1:43123 . The first start writes the demo account `demo` / `demo1234`. Data lives in `backend/data/`. Offline rules still model problems when no external model key is configured.
+
+Desktop dev shell:
+
+```bash
+cd frontend
+npm run desktop
+```
+
+Tests:
+
+```bash
+cd backend
+PYTHONPATH=. AXIOM_SKIP_EXAMPLE=1 .venv/bin/python -m pytest
+cd ../frontend
+npm test
+```
+
 ## Documentation
 
-- [产品说明](README.original.md)
+- [docs/architecture.md](docs/architecture.md)
+- [docs/aml-spec.md](docs/aml-spec.md)
+- [docs/solvers.md](docs/solvers.md)
+- [docs/analysis.md](docs/analysis.md)
+- [docs/agents.md](docs/agents.md)
+- [docs/lifecycle.md](docs/lifecycle.md)
+- [ROADMAP.md](ROADMAP.md)
+- [docs/providers.md](docs/providers.md)
+- [docs/studio-ux.md](docs/studio-ux.md)
+- [docs/figures.md](docs/figures.md)
+- [docs/algorithms.md](docs/algorithms.md)
+- [docs/windows-offline.md](docs/windows-offline.md)
 
+## Contributing
+
+Issues and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md). Please report vulnerabilities privately via [SECURITY.md](SECURITY.md). This project follows [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+
+## License
+
+No LICENSE file is included in this repository; the license is unspecified.
