@@ -1,8 +1,21 @@
-<p align="center"><img src="frontend/src/assets/hero.png" alt="Axiom" width="128"></p>
+<p align="center"><img src="frontend/src/assets/hero.png" alt="Axiom logo" width="128"></p>
+
+<p align="center"><em>应用标识 / logo（不是产品窗口截图）</em></p>
 
 # 公理 Axiom
 
 **1.0.0** · 本地优先的数学建模工作室：用中文或英文描述生产计划、运输、排班等问题，智能体写成 Axiom 建模语言（AML），并行调用求解器并给出可导出报告。
+
+## 界面截图（待补真实图）
+
+仓库里目前只有图标和上面的装饰性 hero，**没有**真实产品窗口截图，因此不把 logo 当作界面图嵌入。预留路径（请在真实运行的工作室里截取后放入，不要用生成图）：
+
+- `docs/screenshots/01-workbench.png` — 主工作台 / 模型列表或编辑器
+- `docs/screenshots/02-solve-or-report.png` — 求解结果或导出报告
+
+启动建议：按「从源码运行」同时打开 FastAPI `:43124` 与 Vite `:43123`，浏览器打开 http://127.0.0.1:43123 ，或 `cd frontend && npm run desktop`。请遮盖真实 API Key；演示账号不要写进新截图以外的地方。
+
+本仓库没有 GitHub Release 安装包。
 
 ## 功能特性
 
@@ -91,6 +104,10 @@ npm test
 # Axiom
 
 **1.0.0** · A local-first mathematical modeling studio. Describe planning, transport, scheduling, or similar problems in Chinese or English; agents write Axiom Modeling Language (AML), race open-source solvers, and export reports.
+
+### Screenshots (reserved)
+
+The repository currently has only icons and the decorative hero graphic above. That logo is not a product-window screenshot. Reserved paths: `docs/screenshots/01-workbench.png`, `docs/screenshots/02-solve-or-report.png`. Run the FastAPI sidecar and Vite UI, or `npm run desktop`. Mask API keys. There is no published installer.
 
 ## Features
 
